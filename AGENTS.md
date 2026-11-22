@@ -17,14 +17,18 @@ The `.claude/skills/` folder holds `write-plan` (drafts `plan/PLAN.md`) and `cle
 
 ## Structure and content
 
-`content/business.ts` holds the starter's shared business details and sample copy. When building a
-site, write page-specific copy directly in the route's `app/**/page.tsx` as JSX children of named React
-components. Put headings, calls to action, labels and captions in page order. Backing components
-own the semantic markup, Tailwind styles, accessibility and behavior. Keep typed data in `content/`
-for values the site reads programmatically, including contact details and structured collections.
-Document fields and validate IDs, required
-fields, prices, availability and references with item-specific failures. Rename in content and
-site.config.json. Keep the provisioner's config shape: name, description, domain, optional timeZone,
+File ownership for this website (Sunward Solar / Solar Bright):
+- `content/business.ts`: business name, email, phone, Adelaide location note, service areas, weekly opening hours and Contact checklist.
+- `content/packages.ts`: residential solar/battery packages (`fromPriceAud`, `availability`, `featured`, specs), add-ons and validation (`validatePackages`). Most frequently edited by the owner.
+- `content/savings.ts`: illustrative Adelaide tariff/yield assumptions and six Sun-path Dial frames (`validateSavings`).
+- `content/rebates.ts`: `lastReviewed` date, FAQ categories and answers (`validateRebates`); never state a current rebate dollar amount as fact.
+- `content/installs.ts`: recent installs referencing package IDs (`validateInstalls`).
+- `content/process.ts`: five install steps along the Home sun arc (`validateProcess`).
+- `app/page.tsx`, `app/packages/page.tsx`, `app/savings/page.tsx`, `app/rebates/page.tsx`, `app/contact/page.tsx`, `app/not-found.tsx`: page-specific copy as JSX children of named components in `components/`.
+- `lib/savings-estimator.ts`: pure tested illustrative savings and simple payback calculation.
+- `lib/structured-data.ts`: `HomeAndConstructionBusiness` and `FAQPage` JSON-LD derived from content.
+
+Keep the provisioner's `site.config.json` shape: name, description, domain, optional timeZone,
 jamstacks.siteId/cdnUrl and optional provisioningId. Business data never goes there. Reuse the design's
 illustrations and palette rather than adding unrelated assets.
 

@@ -1,0 +1,22 @@
+{
+  "templateId": "next-solar-bright",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "fullPage": false,
+  "captures": [
+    {
+      "mode": "light",
+      "sha256": "a7237a42b5e782c70dc7069b762d2ee15a45492cc6710bcc885841e21e05d523",
+      "file": "jamstacks/home-light.jpg",
+      "bytes": 186221
+    },
+    {
+      "mode": "dark",
+      "sha256": "fa3954254a3b5ff48f1c29c86e75c75087b34ea29a21af4a1b0b7e02b5e17a65",
+      "file": "jamstacks/home-dark.jpg",
+      "bytes": 166630
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Solar Bright",
+  "description": "A sunny, optimistic theme for solar and battery installers: a 1970s sun-poster hero, priced panel and battery packages on a rooftop rack, an interactive 'day on solar' sun dial, an illustrative savings estimator and a rebates FAQ.",
+  "tech": "next",
+  "type": "solar",
+  "style": "bright",
+  "internal": false,
+  "components": [
+    "support-form"
+  ],
+  "configFile": "site.config.json",
+  "screenshots": {
+    "light": "jamstacks/home-light.jpg",
+    "dark": "jamstacks/home-dark.jpg",
+    "theme": {
+      "strategy": "media"
+    }
+  }
+}

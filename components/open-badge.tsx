@@ -1,16 +1,55 @@
-"use client";
+'use client';
+
 import { useEffect, useState } from 'react';
-import { openingLabel, type OpeningHours } from '../lib/hours';
+import { openingStatus, phoneOpeningLabel, type OpeningHours } from '../lib/hours';
 import { site } from '../lib/site';
 
-/** Optional. Neutral static output; browser refreshes in the business zone every minute. */
-export function OpenBadge({ hours }: { hours: readonly OpeningHours[] }) {
-  const [label, setLabel] = useState('See opening hours');
+/**
+ * Browser-only live phone hours badge in Australia/Adelaide (refreshes every minute).
+ * Static / no-JS copy stays neutral so prerendered HTML never ships stale open/closed claims.
+ */
+export function OpenBadge({
+  hours,
+  tone = 'surface',
+}: {
+  hours: readonly OpeningHours[];
+  tone?: 'surface' | 'footer';
+}) {
+  const [label, setLabel] = useState('Mon–Fri 8:00 am–5:30 pm · Sat 9:00 am–12:00 pm');
+  const [state, setState] = useState<'open' | 'closed' | 'unknown'>('unknown');
+
   useEffect(() => {
-    const update = () => setLabel(openingLabel(hours, site.timeZone));
+    const update = () => {
+      const zone = site.timeZone || 'Australia/Adelaide';
+      setLabel(phoneOpeningLabel(hours, zone));
+      setState(openingStatus(hours, zone).state);
+    };
     update();
     const timer = setInterval(update, 60_000);
     return () => clearInterval(timer);
   }, [hours]);
-  return <span>{label}</span>;
+
+  const dotColor =
+    state === 'open'
+      ? 'bg-leaf'
+      : state === 'closed'
+        ? 'bg-sun'
+        : 'bg-muted';
+
+  const pillStyle =
+    tone === 'footer'
+      ? 'border-footer-line bg-footer-bg text-footer-ink'
+      : 'border-ink bg-elevated text-ink';
+
+  return (
+    <span
+      className={`inline-flex items-center gap-2 rounded-full border-2 px-3 py-1 font-mono text-xs font-semibold ${pillStyle}`}
+    >
+      <span
+        className={`inline-block h-2.5 w-2.5 shrink-0 rounded-full border border-ink ${dotColor}`}
+        aria-hidden="true"
+      />
+      <span>{label}</span>
+    </span>
+  );
 }
